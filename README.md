@@ -21,7 +21,7 @@
 </div>
 
 > [!NOTE]
-> **PlantHelixSeek** is now available! The pretrained checkpoint supports fine-tuning, mask recovery, embedding extraction, and mutagenesis analysis. **Train on NVIDIA GPU or Huawei Ascend NPU; deploy on NVIDIA GPU**.
+> **PlantHelixSeek** is now available! The pretrained checkpoint supports fine-tuning, mask recovery, embedding extraction, and mutagenesis analysis. **Deploy on NVIDIA GPU or Huawei Ascend NPU**.
 
 ## Table of Contents
 
