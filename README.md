@@ -12,11 +12,9 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.x-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![Transformers](https://img.shields.io/badge/🤗%20Transformers-4.49.0-yellow)](https://huggingface.co/docs/transformers/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Linux](https://img.shields.io/badge/Platform-Linux-success?logo=linux&logoColor=white)](https://www.kernel.org/)
 [![NPU](https://img.shields.io/badge/Ascend%20NPU-supported-orange)](docs/installation.md)
-
-[![GitHub stars](https://img.shields.io/github/stars/zhangtaolab/PlantHelixSeek?style=social)](https://github.com/zhangtaolab/PlantHelixSeek)
 [![HF Model](https://img.shields.io/badge/🤗-HuggingFace-yellow.svg)](https://huggingface.co/zhangtaolab/PlantHelixSeek)
+[![MS Model](https://img.shields.io/badge/🧩-ModelScope-blue.svg)](https://www.modelscope.cn/models/zhangtaolab/PlantHelixSeek)
 
 </div>
 
