@@ -49,18 +49,18 @@
 | **HelixSeek-Delta layers** | Delta Attention (KDA): linear attention with gated delta rule for O(n) long-range modeling | [Kimi-Linear](https://github.com/MoonshotAI/Kimi-Linear) / [Gated DeltaNet](https://arxiv.org/abs/2412.06464) |
 | **HelixSeek-MLA layers**   | Multi-head Latent Attention (MLA) for KV-cache compression                                 | [Kimi-Linear](https://github.com/MoonshotAI/Kimi-Linear)                                                     |
 
-The FFN uses a sparse **Mixture-of-Experts (MoE)** with 8 experts (top-1 routing + 1 shared expert), achieving high capacity at constant inference cost.
+The FFN uses a sparse **Mixture-of-Experts (MoE)** with 8 experts (top-2 routing + 1 shared expert), achieving high capacity at constant inference cost.
 
 ### Model Details
 
 | Property                    | Value                                                           |
 | --------------------------- | --------------------------------------------------------------- |
 | Total parameters            | 470M                                                            |
-| Active parameters per token | ~235M (MoE routing)                                             |
+| Active parameters per token | ~240M (MoE routing)                                             |
 | Hidden size                 | 512                                                             |
 | Layers                      | 39 (hybrid: Transformer + KDA + MLA)                            |
 | Attention heads             | 16                                                              |
-| Experts                     | 8 (top-1 + 1 shared)                                            |
+| Experts                     | 8 (top-2 + 1 shared)                                            |
 | Max context length          | 8,192 bp                                                        |
 | Vocabulary                  | 11 tokens (single-nucleotide: A, T, C, G, N + specials)         |
 | Tokenizer                   | SingleBase (1 nucleotide = 1 token)                             |
