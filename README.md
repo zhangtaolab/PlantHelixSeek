@@ -162,27 +162,24 @@ python scripts/huggingface/verify_install.py --model_path models/PlantHelixSeek
 
 ###  Ascend NPU
 
-**Prerequisite**: Install the [CANN Toolkit](https://www.hiascend.com/) (≥ 9.0.0 for Ascend 910B2) and source its `set_env.sh` in every shell before running PlantHelixSeek — torch-npu needs the CANN runtime on `LD_LIBRARY_PATH`. The exact path depends on where you installed CANN (e.g. `/usr/local/Ascend/ascend-toolkit/cann/set_env.sh`).
+**Prerequisite**: [CANN Toolkit](https://www.hiascend.com/) ≥ 9.0.0 (for Ascend 910B2) — torch-npu requires the CANN runtime environment to be active (e.g. `LD_LIBRARY_PATH` pointing to the CANN libraries). Set up your CANN environment the way you normally do.
 
 ```bash
-# 1. Source YOUR CANN environment (path varies by installation)
-source <path-to-your-cann>/set_env.sh
-
-# 2. Install PyTorch + Ascend extension (versions matched to CANN 9.0.0)
+# 1. Install PyTorch + Ascend extension (versions matched to CANN 9.0.0)
 pip install torch==2.9.0 torch-npu==2.9.0.post2
 
-# 3. Install dependencies
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 4. Triton → Ascend compiler backend for FLA kernels
+# 3. Triton → Ascend compiler backend for FLA kernels
 #    (3.2.1 is required for CANN 9.0.0; it is not on PyPI — use the osinfra index)
 pip install triton-ascend==3.2.1 --extra-index-url=https://triton-ascend.osinfra.cn/pypi/simple pybind11
 
-# 5. Override flash-linear-attention to 0.5.1 (0.5.1 adds the triton-ascend NPU backend;
+# 4. Override flash-linear-attention to 0.5.1 (0.5.1 adds the triton-ascend NPU backend;
 #    requirements.txt pins 0.4.1). Install fla-core explicitly — the metapackage doesn't pin it.
 pip install flash-linear-attention==0.5.1 fla-core==0.5.1
 
-# 6. Verify
+# 5. Verify
 python scripts/huggingface/verify_install.py --model_path models/PlantHelixSeek
 ```
 
