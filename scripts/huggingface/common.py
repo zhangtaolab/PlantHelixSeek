@@ -69,14 +69,34 @@ def copy_remote_code_files(model_path: str) -> Path:
     return cache_dir
 
 
+def _mps_device() -> torch.device:
+    if not torch.backends.mps.is_available():
+        raise RuntimeError("MPS requested but torch.backends.mps.is_available() is False")
+    match = re.match(r"(\d+)\.(\d+)", torch.__version__)
+    major_minor = (int(match.group(1)), int(match.group(2))) if match else (0, 0)
+    if major_minor < (2, 12):
+        logger.warning(
+            "torch %s on MPS returns query-shaped SDPA output when value head_dim "
+            "< query head_dim (breaks the MLA layers). Upgrade to torch>=2.12 or run "
+            "scripts/huggingface/apply_mps_fix.py --model_path <model_dir>.",
+            torch.__version__,
+        )
+    return torch.device("mps")
+
+
 def get_device(device_target: str = "auto") -> torch.device:
-    """Return a ``torch.device`` for ``auto`` / ``cuda`` / ``npu`` / ``cpu``."""
+    """Return a ``torch.device`` for ``auto`` / ``cuda`` / ``npu`` / ``mps`` / ``cpu``."""
     if device_target == "auto":
         if torch.cuda.is_available():
             return torch.device("cuda")
         if HAS_TORCH_NPU and torch.npu.is_available():
             return torch.device("npu")
+        if torch.backends.mps.is_available():
+            return _mps_device()
         return torch.device("cpu")
+
+    if device_target == "mps":
+        return _mps_device()
 
     if device_target == "cuda":
         if not torch.cuda.is_available():
@@ -340,4 +360,6 @@ def get_device_name(device: torch.device) -> str:
         return torch.cuda.get_device_name(device)
     if device.type == "npu" and HAS_TORCH_NPU:
         return torch.npu.get_device_name(device)
+    if device.type == "mps":
+        return "Apple MPS"
     return "CPU"

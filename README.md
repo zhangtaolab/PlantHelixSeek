@@ -202,6 +202,26 @@ pip install -r requirements.txt
 
 > ⚠️ CPU mode is for code debugging only, not recommended for actual use. The 470M-parameter model is extremely slow on CPU (tens of seconds per sequence).
 
+### Apple Silicon (macOS, MPS)
+
+```bash
+pip install "torch>=2.12"   # 2.12.0 / 2.13.0 / 2.14.1 verified
+pip install -r requirements.txt
+python scripts/huggingface/verify_install.py --model_path models/PlantHelixSeek --device mps
+```
+
+There are no Triton wheels for macOS, so the KDA layers run a pure PyTorch
+fallback — use MPS for validation, not throughput. On **torch <= 2.11** the MPS
+SDPA kernel returns a query-shaped output when the value head dim is smaller
+than the query head dim, which crashes the MLA layers; upgrade or patch the
+downloaded checkpoint:
+
+```bash
+python scripts/huggingface/apply_mps_fix.py --model_path models/PlantHelixSeek --kda_fallback
+```
+
+See [docs/installation.md](docs/installation.md) for details.
+
 📖 **Full installation guide**: [docs/installation.md](docs/installation.md)
 
 ---
@@ -508,9 +528,11 @@ Throughput (tokens/s) and Peak VRAM/HBM (GiB), forward only:
 | ----------------------------- | -------- | --------- | ------------------------------------------------------------------------------------------ |
 | NVIDIA GPU (CUDA 12.x / 13.x) | ✅       | ✅        | FLA via Triton (`chunk_kda` + `fused_recurrent_kda`)                                   |
 | Huawei Ascend NPU             | ✅†     | ✅        | FLA via [triton-ascend](https://pypi.org/project/triton-ascend/) (`fused_recurrent_kda`) |
+| Apple Silicon (macOS, MPS)    | ⚠️‡     | ⚠️ Slow   | Pure PyTorch fallback, no FLA kernels (requires `torch>=2.12`)                             |
 | CPU                           | —       | ⚠️ Slow | Pure PyTorch fallback                                                                      |
 
 † See the NPU training note below.
+‡ On MPS run `scripts/huggingface/apply_mps_fix.py --kda_fallback` once after downloading the checkpoint; it patches the shipped `attention.py` and keeps an `.orig` backup.
 
 **Train on GPU, deploy on GPU or NPU** — same model weights, same FLA kernels, zero code changes. The model auto-detects the device at runtime and selects the optimal KDA computation mode (`chunk` on GPU, `fused_recurrent` on NPU). See [Installation](#installation) for setup instructions.
 

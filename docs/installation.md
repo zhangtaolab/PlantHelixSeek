@@ -33,6 +33,36 @@ pip install torch --index-url https://download.pytorch.org/whl/cu128
 pip install torch
 ```
 
+### Apple Silicon (macOS, MPS)
+
+```bash
+pip install "torch>=2.12"   # 2.12.0 / 2.13.0 / 2.14.1 verified on macOS arm64
+```
+
+macOS has no Triton wheels, so the FLA kernels used by the KDA layers are
+unavailable and the model runs a pure PyTorch fallback. Treat MPS as a
+validation/debug target, not a throughput target. Two caveats:
+
+- **torch <= 2.11**: MPS SDPA returns a query-shaped output when the value head
+  dim is smaller than the query head dim, which crashes the MLA layers. Either
+  upgrade to torch>=2.12 or patch a downloaded checkpoint:
+
+  ```bash
+  python scripts/huggingface/apply_mps_fix.py --model_path models/PlantHelixSeek
+  ```
+
+- **Accuracy**: the shipped pure-PyTorch KDA fallback does not match FLA
+  semantics (mask recovery drops to ~chance). Pass `--kda_fallback` to also
+  apply the exact recurrence:
+
+  ```bash
+  python scripts/huggingface/apply_mps_fix.py --model_path models/PlantHelixSeek --kda_fallback
+  ```
+
+Both patches are idempotent, keep the original as `attention.py.orig`, and are
+scoped to the code path they fix, so CUDA/NPU runs are unchanged. Then pass
+`--device mps` to any script.
+
 ## 4. Install PlantHelixSeek dependencies
 
 ```bash
@@ -67,4 +97,4 @@ git clone https://huggingface.co/zhangtaolab/PlantHelixSeek ./models/PlantHelixS
 python scripts/huggingface/verify_install.py --model_path models/PlantHelixSeek --device auto
 ```
 
-You should see ✓ for all checks.
+On Apple Silicon use `--device mps`. You should see ✓ for all checks.
