@@ -41,15 +41,15 @@
 
 ## Overview
 
-**PlantHelixSeek** is a plant DNA foundation model pretrained with masked language modeling at single-nucleotide resolution. It is built on the **HelixSeek** architecture — a hybrid stack that interleaves three complementary layer types for efficient long-context bidirectional DNA modeling:
+**PlantHelixSeek** is a plant DNA foundation model pretrained with masked language modeling at single-nucleotide resolution. It is built on the **HelixSeek** architecture — a hybrid stack that interleaves three complementary layer types for efficient bidirectional DNA modeling over 8,192-bp contexts:
 
 | Component                        | Role                                                                                       | Inspiration                                                                                                 |
 | -------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
 | **Transformer layers**     | Full attention for precise positional reasoning                                            | BERT / RoBERTa                                                                                              |
-| **HelixSeek-Delta layers** | Delta Attention (KDA): linear attention with gated delta rule for O(n) long-range modeling | [Kimi-Linear](https://github.com/MoonshotAI/Kimi-Linear) / [Gated DeltaNet](https://arxiv.org/abs/2412.06464) |
-| **HelixSeek-MLA layers**   | Multi-head Latent Attention (MLA) for KV-cache compression                                 | [Kimi-Linear](https://github.com/MoonshotAI/Kimi-Linear)                                                     |
+| **HelixSeek-Delta layers** | Delta Attention (KDA): linear attention with gated delta rule for O(n) long-range modeling | Kimi Linear (arXiv:2510.26692) / Gated DeltaNet (arXiv:2412.06464) |
+| **HelixSeek-MLA layers**   | Multi-head Latent Attention (MLA) for KV-cache compression                                 | DeepSeek-V2 (arXiv:2405.04434) / Kimi Linear (arXiv:2510.26692) |
 
-The FFN uses a sparse **Mixture-of-Experts (MoE)** with 8 experts (top-2 routing + 1 shared expert), achieving high capacity at constant inference cost.
+The FFN uses a sparse **Mixture-of-Experts (MoE)** with 8 experts (top-2 routing + 1 shared expert), following Switch Transformers (Fedus et al., JMLR 2022), achieving high capacity at constant inference cost.
 
 ### Model Details
 
@@ -58,7 +58,7 @@ The FFN uses a sparse **Mixture-of-Experts (MoE)** with 8 experts (top-2 routing
 | Total parameters            | 470M                                                            |
 | Active parameters per token | ~240M (MoE routing)                                             |
 | Hidden size                 | 512                                                             |
-| Layers                      | 39 (hybrid: Transformer + KDA + MLA)                            |
+| Layers                      | 39 (27 Transformer + 9 HelixSeek-Delta + 3 HelixSeek-MLA)        |
 | Attention heads             | 16                                                              |
 | Experts                     | 8 (top-2 + 1 shared)                                            |
 | Max context length          | 8,192 bp                                                        |
@@ -103,7 +103,7 @@ All fine-tuned checkpoints are built on the PlantHelixSeek base and trained for 
 | `PlantHelixSeek-terminator_strength`  | Terminator strength (leaf) | [🤗 HF](https://huggingface.co/datasets/zhangtaolab/plant-multi-species-terminator-strength) · [🧩 MS](https://www.modelscope.cn/datasets/zhangtaolab/plant-multi-species-terminator-strength) | [🤗 HF](https://huggingface.co/zhangtaolab/PlantHelixSeek-terminator_strength) · [🧩 MS](https://www.modelscope.cn/models/zhangtaolab/PlantHelixSeek-terminator_strength)   |
 | `PlantHelixSeek-translation_absolute` | Translation level (leaf)   | [🤗 HF](https://huggingface.co/datasets/zhangtaolab/cross_species_leaf_absolute_translation) · [🧩 MS](https://www.modelscope.cn/datasets/zhangtaolab/cross_species_leaf_absolute_translation) | [🤗 HF](https://huggingface.co/zhangtaolab/PlantHelixSeek-translation_absolute) · [🧩 MS](https://www.modelscope.cn/models/zhangtaolab/PlantHelixSeek-translation_absolute) |
 
-> 📖 Full model–dataset mapping, splits, and metrics: `[docs/finetune_datasets.md](docs/finetune_datasets.md)`
+> Full model–dataset mapping, splits, and metrics: [docs/finetune_datasets.md](docs/finetune_datasets.md). Each dataset and checkpoint also has a Hugging Face card that documents provenance, column definitions, split sizes, and held-out validation metrics.
 
 ### Downstream Validation Tasks (Paper)
 
@@ -518,7 +518,21 @@ Throughput (tokens/s) and Peak VRAM/HBM (GiB), forward only:
 >
 > On NPU the standard attention layers (Transformer/MLA) run via PyTorch SDPA, auto-selected by `from_pretrained`. The KDA (linear-attention) layers use `fused_recurrent_kda` (sequential scan) instead of the parallel `chunk_kda` kernel; `chunk_kda` is expected to be supported in an upcoming triton-ascend release, which will further improve NPU throughput. Additionally, the Ascend 910B2 is positioned in a different performance tier from the RTX 5090 used for GPU benchmarks. Despite these factors, NPU inference delivers practical throughput suitable for production deployment — for example, the full 7,040-sample benchmark dataset completes in ~10 minutes at 1,000 bp sequences.
 
-📖 **Full benchmarks**: [docs/benchmarks.md](docs/benchmarks.md)
+### Cross-model comparison
+
+Inference throughput (tokens s-1) at the batch size shared by all models, from the six-model comparison in Supplemental Figure 3:
+
+| Seq  | Batch | PlantHelixSeek | GENERanno | NT-v2  | PlantCAD2 | DNAMamba2 | PlantGFM |
+| ---- | ----- | -------------- | --------- | ------ | --------- | --------- | -------- |
+| 512  | 32    | 215,139        | 125,698   | 35,954 | 48,343    | 105,013   | 189,487  |
+| 1024 | 16    | 203,731        | 119,349   | 30,855 | 47,996    | 105,583   | 186,804  |
+| 2048 | 8     | 183,730        | 109,050   | 24,052 | 47,876    | 105,816   | 184,164  |
+| 4096 | 4     | 152,882        | 91,845    | n/a    | 48,073    | 105,991   | 180,511  |
+| 8192 | 2     | 115,475        | 70,249    | n/a    | 47,912    | 106,110   | 174,951  |
+
+The reported 32–48% training and 54–79% inference gains are measured against the parameter-matched dense Transformer-470M baseline (472M parameters, 50 layers, hidden size 768). NT-v2 is fp32 and does not support 4,096/8,192 tokens. Models were included if they have 225–493M parameters and run on a 32-GB device; AgroNT (1B) and Evo 2 (7B/40B) were excluded on that basis. Absolute values depend on kernel and batch settings, so compare within a table.
+
+Full tables, including latency, peak memory, the architecture-level baseline, and the GPU/NPU comparison, are in [docs/benchmarks.md](docs/benchmarks.md).
 
 ---
 
@@ -564,14 +578,20 @@ PlantHelixSeek/
 │       └── predict_example.csv
 ├── scripts/
 │   ├── huggingface/           # Main scripts (GPU + NPU unified)
+│   ├── _pretrain/             # Pre-training and compute-benchmark scripts
 │   ├── dnallm/                # DNALLM package wrappers
 │   ├── gene_annotation/       # Gene structure prediction pipeline (paper)
 │   └── cis_regulatory/        # CRE prediction pipeline (paper)
 ├── tests/                     # End-to-end smoke tests
-├── docs/                      # Installation, benchmarks & finetune datasets
+├── docs/
+│   ├── benchmarks.md          # Compute benchmarks (baseline and cross-model)
+│   ├── finetune_datasets.md   # Dataset provenance, columns, splits and metrics
+│   ├── model_cards/           # Version-controlled model cards
+│   └── dataset_cards/         # Version-controlled dataset cards
 ├── picture/                   # Logo & visual assets
 ├── requirements.txt
 ├── pyproject.toml
+├── CITATION.cff
 └── LICENSE
 ```
 
@@ -582,19 +602,25 @@ PlantHelixSeek/
 If you use PlantHelixSeek in your research, please cite:
 
 ```bibtex
-@article{PlantHelixSeek2026,
-  title   = {PlantHelixSeek: A Hybrid Linear Attention-Transformer Mixture-of-Experts DNA Language Model for Plants},
-  author  = {YueChao WU},
+@article{Wu2026PlantHelixSeek,
+  title   = {PlantHelixSeek learns transferable genome representations that capture conserved genome grammar for functional interpretation across plant species},
+  author  = {Wu, YueChao and He, Yao and Chen, Long and Liu, YongQiang and Wang, Tao and Zhao, Hai and Zhang, Yong and Zhang, Tao},
+  journal = {Molecular Plant},
   year    = {2026},
-  url     = {https://huggingface.co/zhangtaolab/PlantHelixSeek}
+  note    = {Manuscript MOLECULAR-PLANT-D-26-00999; DOI to be assigned upon publication}
 }
 ```
+
+The manuscript is under revision at Molecular Plant. A DOI will be added when it is assigned; a machine-readable citation is provided in [CITATION.cff](CITATION.cff).
 
 ---
 
 ## Acknowledgments
 
-- **[Kimi-Linear](https://github.com/MoonshotAI/Kimi-Linear)** — Delta Attention (KDA) and Multi-head Latent Attention (MLA) architecture
+- **[Kimi Linear](https://arxiv.org/abs/2510.26692)** — Delta Attention (KDA) and Multi-head Latent Attention (MLA) architecture
+- **[Gated DeltaNet](https://arxiv.org/abs/2412.06464)** — Gated delta rule for linear attention
+- **[DeepSeek-V2](https://arxiv.org/abs/2405.04434)** — Multi-head Latent Attention (MLA)
+- **[Switch Transformers](https://jmlr.org/papers/v23/21-0998.html)** — Sparse mixture-of-experts routing
 - **[Flash Linear Attention (FLA)](https://github.com/fla-org/flash-linear-attention)** — Efficient chunkwise kernels for KDA layers
 - **[HuggingFace Transformers](https://github.com/huggingface/transformers)** — Model loading, training, and inference framework
 - **[DNALLM](https://github.com/zhangtaolab/dnallm)** — High-level DNA language model toolkit

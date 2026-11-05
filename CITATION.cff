@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+message: "If you use PlantHelixSeek, please cite the manuscript and the archived software."
+title: "PlantHelixSeek: a plant DNA foundation model for transferable genome representation learning"
+abstract: >-
+  PlantHelixSeek is a 470M-parameter plant DNA foundation model trained with
+  masked language modeling at single-nucleotide resolution on 53 plant genomes.
+  The repository provides pre-training, fine-tuning and inference code, model
+  cards, dataset cards and compute benchmarks.
+type: software
+license: MIT
+repository-code: "https://github.com/zhangtaolab/PlantHelixSeek"
+url: "https://huggingface.co/zhangtaolab/PlantHelixSeek"
+keywords:
+  - plant genomics
+  - DNA language model
+  - genome representation learning
+  - cis-regulatory elements
+  - gene annotation
+authors:
+  - family-names: Wu
+    given-names: YueChao
+  - family-names: He
+    given-names: Yao
+  - family-names: Chen
+    given-names: Long
+  - family-names: Liu
+    given-names: YongQiang
+  - family-names: Wang
+    given-names: Tao
+  - family-names: Zhao
+    given-names: Hai
+  - family-names: Zhang
+    given-names: Yong
+  - family-names: Zhang
+    given-names: Tao
+year: 2026
+preferred-citation:
+  type: article
+  title: "PlantHelixSeek learns transferable genome representations that capture conserved genome grammar for functional interpretation across plant species"
+  authors:
+    - family-names: Wu
+      given-names: YueChao
+    - family-names: He
+      given-names: Yao
+    - family-names: Chen
+      given-names: Long
+    - family-names: Liu
+      given-names: YongQiang
+    - family-names: Wang
+      given-names: Tao
+    - family-names: Zhao
+      given-names: Hai
+    - family-names: Zhang
+      given-names: Yong
+    - family-names: Zhang
+      given-names: Tao
+  journal: "Molecular Plant"
+  year: 2026
+  notes: "Manuscript MOLECULAR-PLANT-D-26-00999; under revision. DOI to be assigned upon publication."
