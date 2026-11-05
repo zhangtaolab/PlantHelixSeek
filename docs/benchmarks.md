@@ -167,9 +167,10 @@ comparison.
   explains the different peak-memory values for PlantHelixSeek at 8,192 tokens
   (2.97 GiB in Section 1 at batch size 1 versus 1.20 GiB in Section 2 at batch
   size 2).
-- Raw benchmark records for Section 1 are in
-  `results/figure1_architecture_comparison/` and for Section 2 in
-  `results/figure1_model_comparison/` of the accompanying analysis archive.
+- Raw benchmark records are in [`docs/benchmark_data/`](benchmark_data/):
+  `architecture_speed.csv` and `architecture_memory.csv` for Section 1, and
+  `cross_model_inference_summary.csv` and `cross_model_training_summary.csv`
+  for Section 2.
 
 ## References
 

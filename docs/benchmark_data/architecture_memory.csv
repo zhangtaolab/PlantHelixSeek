@@ -1,0 +1,11 @@
+task,seq_len,T-MLM-220M_GiB,T-MLM-470M_GiB,PlantHelixSeek-SDPA_GiB
+train,512,3.923,8.829,8.214
+train,1024,4.428,8.917,7.889
+train,2048,6.301,11.521,9.595
+train,4096,10.664,17.492,14.023
+train,8192,21.827,OOM,24.484
+inference,512,1.199,2.748,2.562
+inference,1024,1.214,2.806,2.545
+inference,2048,1.249,2.835,2.583
+inference,4096,1.343,2.949,2.648
+inference,8192,1.637,3.256,2.969

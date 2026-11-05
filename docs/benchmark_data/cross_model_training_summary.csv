@@ -1,0 +1,95 @@
+﻿model,short,arch,tokenizer,dtype,num_params_m,token_len,batch_size,median_latency_ms,median_tokens_per_sec,peak_vram_mb,static_vram_mb,n_ok
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,512,1,60.288,8492.6,4733.3,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,512,2,62.987,16257.3,4757.5,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,1024,1,64.304,15924.3,4757.5,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,1024,2,76.121,26904.5,6134.8,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,2048,1,76.866,26643.9,6130.8,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,2048,2,131.144,31232.7,9471.7,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,4096,1,160.243,25561.3,9472.3,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,4096,2,301.62,27160.0,16090.5,958.0,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,8192,1,405.363,20209.0,16091.7,958.0,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,512,1,72.379,7073.9,9505.8,1918.3,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,512,2,102.495,9990.8,9536.2,1918.3,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,1024,1,112.511,9101.4,10567.5,1918.3,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,1024,2,201.688,10154.3,15344.0,1918.3,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,2048,1,247.333,8280.3,19454.5,1918.3,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,512,1,428.765,1194.1,5951.5,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,512,2,420.744,2433.8,6594.9,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,1024,1,421.191,2431.2,6594.4,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,1024,2,499.757,4098.0,9607.7,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,2048,1,479.348,4272.5,9604.4,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,2048,2,441.854,9270.0,15705.2,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,4096,1,444.009,9225.0,15703.3,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,4096,2,562.776,14556.4,27525.1,1200.9,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,8192,1,564.205,14519.6,27524.6,1200.9,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,512,1,103.609,4941.7,3225.3,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,512,2,120.343,8509.0,3233.6,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,1024,1,121.566,8423.4,3238.0,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,1024,2,122.481,16720.9,4202.6,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,2048,1,122.441,16726.4,4192.5,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,2048,2,123.781,33090.7,6452.3,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,4096,1,121.324,33760.9,6433.6,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,4096,2,177.026,46275.8,10967.0,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,8192,1,174.855,46850.3,10933.2,653.7,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,8192,2,360.66,45427.8,20039.8,653.7,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,512,1,41.403,12366.3,2213.0,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,512,2,39.345,26026.4,2852.5,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,1024,1,39.51,25917.6,3032.2,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,1024,2,45.375,45134.6,4374.8,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,2048,1,47.438,43172.4,4734.4,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,2048,2,78.231,52358.0,7419.2,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,4096,1,75.097,54542.8,8138.9,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,4096,2,155.532,52671.0,13508.1,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,8192,1,153.047,53526.0,14947.8,470.2,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,8192,2,328.601,49859.8,25686.5,470.2,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,512,1,105.034,4874.6,3166.9,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,512,2,104.849,9766.4,3756.7,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,1024,1,104.215,9825.9,3716.2,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,1024,2,109.818,18649.0,5466.8,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,2048,1,123.515,16581.0,5530.9,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,2048,2,162.421,25218.4,8994.2,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,4096,1,201.908,20286.4,8995.8,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,4096,2,332.303,24652.2,15893.8,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,8192,1,514.781,15913.6,15944.3,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,8192,2,947.18,17297.7,29863.6,900.9,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,512,4,65.876,31088.9,6135.0,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,512,8,108.816,37641.6,9470.5,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,512,16,211.117,38803.2,16088.7,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,1024,4,116.671,35107.2,9470.8,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,1024,8,223.985,36573.8,16088.9,941.1,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,512,4,173.251,11821.0,13321.0,1901.1,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,512,8,325.21,12595.0,20930.2,1901.1,1
+NT-v2,NT-v2,"Transformer (ESM, RoPE)",6-mer,fp32,498.3,1024,4,374.379,10940.8,24897.2,1901.1,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,512,4,516.178,3967.6,9606.7,1184.6,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,512,8,492.357,8319.2,15708.5,1184.6,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,512,16,565.748,14479.9,27532.5,1184.6,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,1024,4,496.959,8242.1,15705.3,1184.6,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,1024,8,565.475,14486.9,27528.1,1184.6,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,512,4,138.04,14836.3,4200.4,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,512,8,101.326,40424.1,6450.9,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,512,16,177.614,46122.5,10966.9,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,1024,4,146.501,27958.9,6449.8,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,1024,8,177.364,46187.5,10964.2,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,1024,16,361.925,45269.0,20038.0,636.4,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,512,4,44.017,46527.9,4196.5,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,512,8,74.379,55069.5,6881.3,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,512,16,146.257,56011.1,12252.7,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,1024,4,76.03,53873.3,7060.1,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,1024,8,148.404,55200.7,12430.2,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,1024,16,309.309,52969.7,23171.8,454.8,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,512,4,110.173,18588.9,5477.8,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,512,8,129.019,31747.2,8925.0,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,512,16,179.863,45545.7,15826.3,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,1024,4,170.462,24028.9,8931.2,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,1024,8,199.535,41055.5,15832.6,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,1024,16,339.711,48229.3,29611.3,900.9,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,2048,4,249.797,32794.6,16096.1,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,4096,4,601.69,27230.0,29114.7,941.1,1
+GENERanno-Euk,GENERanno,"Transformer (RoPE, Gemma-like)",single-base,bf16,493.4,8192,2,789.073,20763.6,29116.9,941.1,1
+PlantCAD2,PlantCAD2,"Caduceus (bi-Mamba, RCPS)",single-base,bf16,621.0,2048,4,562.441,14565.1,27526.8,1184.6,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,2048,4,176.246,46480.5,10973.0,636.4,1
+PlantDNAMamba2,Mamba2-370,Mamba2,BPE,bf16,333.6,4096,4,356.955,45899.4,20049.2,636.4,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,2048,4,150.911,54283.7,12789.0,454.8,1
+PlantGFM,PlantGFM,Hyena,single-base,bf16,224.8,4096,4,317.209,51650.4,24247.3,454.8,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,2048,4,241.964,33856.3,15832.8,900.9,1
+PlantHelixSeek,HelixSeek,Hybrid (Transformer+SSM+MoE+MLA),single-base,bf16,470.7,4096,4,597.557,27418.3,29678.1,900.9,1

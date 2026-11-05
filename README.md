@@ -585,6 +585,7 @@ PlantHelixSeek/
 ├── tests/                     # End-to-end smoke tests
 ├── docs/
 │   ├── benchmarks.md          # Compute benchmarks (baseline and cross-model)
+│   ├── benchmark_data/        # Raw benchmark records
 │   ├── finetune_datasets.md   # Dataset provenance, columns, splits and metrics
 │   ├── model_cards/           # Version-controlled model cards
 │   └── dataset_cards/         # Version-controlled dataset cards
